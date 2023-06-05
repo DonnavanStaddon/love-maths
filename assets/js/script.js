@@ -16,8 +16,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 })
 
+//
+/** 
+ * Docstrings are used to describe functions
+ * The main game "loop", called when the scritp is first loaded
+ * and after the user's answer has been processed
+ */
 function runGame(params) {
-
+    //Creates teo hole numbers between 1 and 25
+    let num1 = Math.floor(Math.random() * 25) + 1;
+    let num2 = Math.floor(Math.random() * 25) + 1;
 }
 
 function checkAnswer(params) {
