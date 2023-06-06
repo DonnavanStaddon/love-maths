@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let button of buttons) {
         button.addEventListener("click", function () {
             if (this.getAttribute("data-type") === "submit") {//this referes to the button we just clicked
-                alert("You clicked Submit!");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
@@ -19,12 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //
 /** 
- * Docstrings are used to describe functions
- * The main game "loop", called when the scritp is first loaded
+ * The main game "loop", called when the script is first loaded
  * and after the user's answer has been processed
  */
 function runGame(gameType) {
-    //Creates teo hole numbers between 1 and 25
+    //Creates two hole numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
@@ -36,15 +35,32 @@ function runGame(gameType) {
     }
 }
 
+/**
+ * Checks the answer against the first element in
+ * the returned calculateCorrectAnswer array
+ */
 function checkAnswer(params) {
 
+    //Checking User input answer from the DOM
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    //getting the correct arrayed answer from pc
+    let calculatedAnswer = calculateCorrectAnswer();
+    //comparing the users input answer with the computers calculated answer from index[0] from the array
+    let isCorrect = userAnswer === calculatedAnswer[0];
+    if (isCorrect) {
+        alert("Hey you got it right! :o")
+    } else {
+        alert(`Awww... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+    }
+    runGame(calculatedAnswer[1])//Last thing to do is run another game of the same type
 }
 
 /**
  * Gets/Stores the operands (the numbers) and the operator (plus, minus etc)
  * directly from the dom, and returns the correct answer.
+ * this function returns an array of the correct answer the stores it
  */
-function calculateCorrectAnswer(params) {
+function calculateCorrectAnswer() {
 
     let operand1 = parseInt(document.getElementById('operand1').innerText);
     let operand2 = parseInt(document.getElementById('operand2').innerText);
